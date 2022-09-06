@@ -1,4 +1,4 @@
-package com.salaxer.marketplace.domain;
+package com.salaxer.marketplace.domain.dto;
 
 public class ProductDTO {
   private int productId;
@@ -7,7 +7,7 @@ public class ProductDTO {
   private double price;
   private int stock;
   private int state;
-  private Category category;
+  private CategoryDTO category;
   
   public int getProductId() {
     return productId;
@@ -45,10 +45,10 @@ public class ProductDTO {
   public void setState(int state) {
     this.state = state;
   }
-  public Category getCategory() {
+  public CategoryDTO getCategory() {
     return category;
   }
-  public void setCategory(Category category) {
+  public void setCategory(CategoryDTO category) {
     this.category = category;
   }
 

@@ -1,6 +1,6 @@
 package com.salaxer.marketplace.persistence.mapper;
 
-import com.salaxer.marketplace.domain.ProductDTO;
+import com.salaxer.marketplace.domain.dto.ProductDTO;
 import com.salaxer.marketplace.persistence.entity.Product;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-09-04T21:13:26-0500",
+    date = "2022-09-05T18:32:11-0500",
     comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 1.4.200.v20220719-0747, environment: Java 17.0.4 (Eclipse Adoptium)"
 )
 @Component

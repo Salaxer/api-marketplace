@@ -1,6 +1,6 @@
-package com.salaxer.marketplace.domain;
+package com.salaxer.marketplace.domain.dto;
 
-public class Category {
+public class CategoryDTO {
   private int categoryId;
   private String category;
   private int state;

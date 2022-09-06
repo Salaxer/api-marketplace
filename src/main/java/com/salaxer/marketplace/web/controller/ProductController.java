@@ -4,11 +4,18 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.salaxer.marketplace.domain.ProductDTO;
+import com.salaxer.marketplace.domain.dto.ProductDTO;
 import com.salaxer.marketplace.domain.service.ProductDTOService;
 
 @RestController
@@ -19,33 +26,44 @@ public class ProductController {
   private ProductDTOService productDTOService;
 
   @GetMapping
-  public List<ProductDTO> getAll(){
-    return productDTOService.getAll();
+  public ResponseEntity<List<ProductDTO>> getAll(){
+    return new ResponseEntity<>(productDTOService.getAll(), HttpStatus.OK);
   } 
 
-  public Optional<ProductDTO> getProduct(int productId){
-    return productDTOService.getProduct(productId);
+  @GetMapping(path = "{id}")
+  public ResponseEntity<ProductDTO> getProduct(@PathVariable("id") int productId){
+    return productDTOService.getProduct(productId)
+      .map(prod -> new ResponseEntity<>(prod, HttpStatus.OK))
+      .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
   }
 
-  public Optional<List<ProductDTO>> getByCategory(int categoryId){
-    return productDTOService.getByCategory(categoryId);
+  @GetMapping(path = "category/{id}")
+  public ResponseEntity<List<ProductDTO>> getByCategory(@PathVariable("id") int categoryId){
+    return productDTOService.getByCategory(categoryId)
+      .map(prod -> new ResponseEntity<>(prod, HttpStatus.OK))
+      .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
   }
 
-  public Optional<List<ProductDTO>> getOutOfStock(int quantity){
+  @GetMapping(path = "stock/{quantity}")
+  public Optional<List<ProductDTO>> getOutOfStock(@PathVariable("quantity") int quantity){
     return productDTOService.getOutOfStock(quantity);
   }
-
-  public ProductDTO save(ProductDTO product){
-    return productDTOService.save(product);
+  
+  @PostMapping()
+  public ResponseEntity<ProductDTO> save(@RequestBody ProductDTO product){
+    return new ResponseEntity<>(productDTOService.save(product), HttpStatus.CREATED);
+  }
+  
+  @DeleteMapping(path = "{id}")
+  public ResponseEntity<Object> delete(@PathVariable("id") int productId){
+    return productDTOService.delete(productId)
+      ?  ResponseEntity.status(HttpStatus.ACCEPTED).body("Eliminado Correctamente")
+      :  ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se ha eliminado Correctamente");
   }
 
-  public boolean delete(int productId){
-    try {
-      productDTOService.delete(productId);
-      return true;
-    } catch (Exception e) {
-      return false;
-    }
+  @PutMapping()
+  public ProductDTO update(@RequestBody ProductDTO product){
+    return productDTOService.save(product);
   }
 
 

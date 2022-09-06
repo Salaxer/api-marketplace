@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
-import com.salaxer.marketplace.domain.ProductDTO;
+import com.salaxer.marketplace.domain.dto.ProductDTO;
 import com.salaxer.marketplace.persistence.entity.Product;
 
 // Aqui (lo voy a escribir en spanish para mas rapido:)

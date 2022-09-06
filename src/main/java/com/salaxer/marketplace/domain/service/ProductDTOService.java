@@ -6,38 +6,38 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.salaxer.marketplace.domain.ProductDTO;
-import com.salaxer.marketplace.domain.repository.DomainProductRepository;
+import com.salaxer.marketplace.domain.dto.ProductDTO;
+import com.salaxer.marketplace.domain.repository.ProductDTORepository;
 
 @Service
 public class ProductDTOService {
   
   @Autowired
-  private DomainProductRepository domainProductRepository;
+  private ProductDTORepository ProductDTORepository;
 
   public List<ProductDTO> getAll(){
-    return domainProductRepository.getAll();
+    return ProductDTORepository.getAll();
   };
 
   public Optional<ProductDTO> getProduct(int productId){
-    return domainProductRepository.getProduct(productId);
+    return ProductDTORepository.getProduct(productId);
   }
 
   public Optional<List<ProductDTO>> getByCategory(int categoryId){
-    return domainProductRepository.getByCategory(categoryId);
+    return ProductDTORepository.getByCategory(categoryId);
   }
 
   public Optional<List<ProductDTO>> getOutOfStock(int quantity){
-    return domainProductRepository.getOutOfStock(quantity);
+    return ProductDTORepository.getOutOfStock(quantity);
   }
 
   public ProductDTO save(ProductDTO product){
-    return domainProductRepository.save(product);
+    return ProductDTORepository.save(product);
   }
 
   public boolean delete(int productId){
     try {
-      domainProductRepository.delete(productId);
+      ProductDTORepository.delete(productId);
       return true;
     } catch (Exception e) {
       return false;

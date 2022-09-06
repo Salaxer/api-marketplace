@@ -4,6 +4,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 @Entity
@@ -18,12 +19,29 @@ public class ProductShopping {
   private Integer state;
 
   @ManyToOne
+  @MapsId("idShopping")
   @JoinColumn(name = "id_shopping", insertable = false, updatable = false)
   private Shopping shopping;
   
   @ManyToOne
   @JoinColumn(name = "id_products", insertable = false, updatable = false)
   private Product product;
+
+  public void setShopping(Shopping shopping){
+    this.shopping = shopping;
+  }
+
+  public Shopping getShopping(){
+    return shopping;
+  }
+
+  public void setProduct(Product product){
+    this.product = product;
+  }
+
+  public Product getProduct(){
+    return product;
+  }
 
   public ProductShoppingPK getId() {
     return id;

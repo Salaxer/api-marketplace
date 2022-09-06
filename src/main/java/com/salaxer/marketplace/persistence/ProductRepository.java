@@ -6,15 +6,15 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.salaxer.marketplace.domain.ProductDTO;
-import com.salaxer.marketplace.domain.repository.DomainProductRepository;
+import com.salaxer.marketplace.domain.dto.ProductDTO;
+import com.salaxer.marketplace.domain.repository.ProductDTORepository;
 import com.salaxer.marketplace.persistence.crud.ProductCrudRepository;
 import com.salaxer.marketplace.persistence.entity.Product;
 import com.salaxer.marketplace.persistence.mapper.ProductMapper;
 
 
 @Repository
-public class ProductRepository implements DomainProductRepository{
+public class ProductRepository implements ProductDTORepository{
   
   @Autowired
   private ProductCrudRepository productCrudRepository;

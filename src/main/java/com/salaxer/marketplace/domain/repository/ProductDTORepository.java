@@ -3,9 +3,9 @@ package com.salaxer.marketplace.domain.repository;
 import java.util.List;
 import java.util.Optional;
 
-import com.salaxer.marketplace.domain.ProductDTO;
+import com.salaxer.marketplace.domain.dto.ProductDTO;
 
-public interface DomainProductRepository {
+public interface ProductDTORepository {
   public List<ProductDTO> getAll();
   public Optional<List<ProductDTO>> getByCategory(int categoryId);
   public Optional<List<ProductDTO>> getOutOfStock(int quantity);

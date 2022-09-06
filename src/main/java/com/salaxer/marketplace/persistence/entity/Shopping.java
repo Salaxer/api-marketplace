@@ -3,6 +3,7 @@ package com.salaxer.marketplace.persistence.entity;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,14 +33,30 @@ public class Shopping {
 
   private String comment;
 
-  private Integer state;
+  private String state;
 
   @ManyToOne
   @JoinColumn(name = "id_customers", insertable = false, updatable = false)
   private Customer customer;
 
-  @OneToMany(mappedBy = "shopping")
-  private List<ProductShopping> shopping;
+  public Customer getCustomer(){
+    return customer;
+  }
+
+  public void setCustomer(Customer Customer) {
+    this.customer = Customer;
+  }
+
+  @OneToMany(mappedBy = "shopping", cascade = {CascadeType.ALL})
+  private List<ProductShopping> products;
+
+  public List<ProductShopping> getProducts(){
+    return products;
+  }
+
+  public void setProducts(List<ProductShopping> products) {
+    this.products = products;
+  }
 
   public Integer getIdShopping() {
     return idShopping;
@@ -81,11 +98,11 @@ public class Shopping {
     this.comment = comment;
   }
 
-  public Integer getState() {
+  public String getState() {
     return state;
   }
 
-  public void setState(Integer state) {
+  public void setState(String state) {
     this.state = state;
   }
 

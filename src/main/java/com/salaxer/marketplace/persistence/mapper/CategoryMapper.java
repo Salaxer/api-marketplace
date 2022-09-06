@@ -5,7 +5,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
-import com.salaxer.marketplace.domain.Category;
+import com.salaxer.marketplace.domain.dto.CategoryDTO;
+import com.salaxer.marketplace.persistence.entity.Category;
 
 @Mapper(componentModel = "spring")
 public interface CategoryMapper {
@@ -15,10 +16,10 @@ public interface CategoryMapper {
     @Mapping(source = "description", target = "category"),
     @Mapping(source = "state", target = "state"),
   })
-  Category toCategory(com.salaxer.marketplace.persistence.entity.Category category);
+  CategoryDTO toCategory(Category category);
 
   @InheritInverseConfiguration
   @Mapping(target = "products", ignore = true)
-  com.salaxer.marketplace.persistence.entity.Category toCategories(Category category);
+  Category toCategories(CategoryDTO category);
 
 }
