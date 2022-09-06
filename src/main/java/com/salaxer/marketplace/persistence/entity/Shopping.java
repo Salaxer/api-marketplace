@@ -39,6 +39,9 @@ public class Shopping {
   @JoinColumn(name = "id_customers", insertable = false, updatable = false)
   private Customer customer;
 
+  @OneToMany(mappedBy = "shopping", cascade = {CascadeType.ALL})
+  private List<ProductShopping> products;
+  
   public Customer getCustomer(){
     return customer;
   }
@@ -46,9 +49,6 @@ public class Shopping {
   public void setCustomer(Customer Customer) {
     this.customer = Customer;
   }
-
-  @OneToMany(mappedBy = "shopping", cascade = {CascadeType.ALL})
-  private List<ProductShopping> products;
 
   public List<ProductShopping> getProducts(){
     return products;

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,8 +39,11 @@ public class PurchaseController {
   }
 
   @PostMapping
-  public ResponseEntity<PurchaseDTO> save(PurchaseDTO purchaseDTO){
-    return new ResponseEntity<>(purchaseDTOService.save(purchaseDTO), HttpStatus.OK);
+  public ResponseEntity<PurchaseDTO> save(@RequestBody PurchaseDTO purchaseDTO){
+    // System.out.println(purchaseDTO.getClientId());
+    // purchaseDTO.getItems().forEach(item -> System.out.println(item.getProductId()));
+    // return new ResponseEntity<>(purchaseDTO, HttpStatus.CREATED);
+    return new ResponseEntity<>(purchaseDTOService.save(purchaseDTO), HttpStatus.CREATED);
   }
-  
+
 }
