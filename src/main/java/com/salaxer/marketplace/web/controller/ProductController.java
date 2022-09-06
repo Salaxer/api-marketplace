@@ -18,6 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.salaxer.marketplace.domain.dto.ProductDTO;
 import com.salaxer.marketplace.domain.service.ProductDTOService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -26,12 +31,22 @@ public class ProductController {
   private ProductDTOService productDTOService;
 
   @GetMapping
+  @Operation(summary = "Get All Products", description = "With this Request, you can obtain all registred product in the api")
+  @ApiResponse(responseCode = "200", description = "Ok")
   public ResponseEntity<List<ProductDTO>> getAll(){
     return new ResponseEntity<>(productDTOService.getAll(), HttpStatus.OK);
   } 
 
   @GetMapping(path = "{id}")
-  public ResponseEntity<ProductDTO> getProduct(@PathVariable("id") int productId){
+  @Operation(summary = "Get Product by Id", description = "With this Request, you can obtain the registred product in the api using the Id to search it")
+  @ApiResponses({
+    @ApiResponse(responseCode = "200", description = "Ok"),
+    @ApiResponse(responseCode = "404", description = "Product not Found")
+  })
+  public ResponseEntity<ProductDTO> getProduct(
+      @Parameter(description = "The Id of the product", required = true, example = "1")
+      @PathVariable("id") int productId
+    ){
     return productDTOService.getProduct(productId)
       .map(prod -> new ResponseEntity<>(prod, HttpStatus.OK))
       .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -62,8 +77,13 @@ public class ProductController {
   }
 
   @PutMapping()
-  public ProductDTO update(@RequestBody ProductDTO product){
-    return productDTOService.save(product);
+  public ResponseEntity<Object> update(@RequestBody ProductDTO product){
+    try {
+      ProductDTO productDTO = productDTOService.save(product);
+      return ResponseEntity.status(HttpStatus.CREATED.value()).body(productDTO);
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.NOT_MODIFIED.value()).body("El id del producto a modificar no existe");
+    }
   }
 
 
